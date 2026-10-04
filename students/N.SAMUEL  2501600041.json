@@ -1,0 +1,507 @@
+[
+    {
+        "id": "122e32a5737ac271",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "2c2b5a2c916451b0",
+        "type": "ui-switch",
+        "z": "122e32a5737ac271",
+        "name": "",
+        "label": "Fridge",
+        "group": "b7121419d92113fb",
+        "order": 4,
+        "width": "0",
+        "height": "0",
+        "passthru": false,
+        "decouple": false,
+        "topic": "fridge",
+        "topicType": "str",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 350,
+        "y": 40,
+        "wires": [
+            [
+                "285f46821392a81d"
+            ]
+        ]
+    },
+    {
+        "id": "809adedea91ff3fd",
+        "type": "ui-switch",
+        "z": "122e32a5737ac271",
+        "name": "",
+        "label": "Cooler fan",
+        "group": "b7121419d92113fb",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "fan",
+        "topicType": "str",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 350,
+        "y": 100,
+        "wires": [
+            [
+                "285f46821392a81d"
+            ]
+        ]
+    },
+    {
+        "id": "a61bf0a9860a3940",
+        "type": "ui-switch",
+        "z": "122e32a5737ac271",
+        "name": "",
+        "label": "Water Heater",
+        "group": "b7121419d92113fb",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "heater",
+        "topicType": "str",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 350,
+        "y": 180,
+        "wires": [
+            [
+                "285f46821392a81d"
+            ]
+        ]
+    },
+    {
+        "id": "c63f224d25e2cb04",
+        "type": "ui-switch",
+        "z": "122e32a5737ac271",
+        "name": "",
+        "label": "Television",
+        "group": "b7121419d92113fb",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "tv",
+        "topicType": "str",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 340,
+        "y": 220,
+        "wires": [
+            [
+                "285f46821392a81d"
+            ]
+        ]
+    },
+    {
+        "id": "285f46821392a81d",
+        "type": "function",
+        "z": "122e32a5737ac271",
+        "name": "Calculate total Power",
+        "func": "// Wattage rating for each appliance\nconst wattages = {\n    fridge: 1500,\n    fan: 1200,\n    heater: 150,\n    tv: 100\n};\n\n// Persisted on/off state for every appliance\nlet state = context.get('state') || { fridge: false, ac: false, heater: false, tv: false };\n\n// Update state only when a real switch message arrives (not the tick)\nif (msg.topic !== 'tick' && wattages.hasOwnProperty(msg.topic)) {\n    state[msg.topic] = msg.payload;\n    context.set('state', state);\n}\n\n// Sum wattage of every appliance currently ON\nlet total = 0;\nfor (const key in state) {\n    if (state[key]) {\n        total += wattages[key];\n    }\n}\n\nmsg.payload = total;\nmsg.topic = 'power';\nreturn msg;\n\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 140,
+        "wires": [
+            [
+                "60d7121ffbf32eab",
+                "076e6c89aa2dc5e5",
+                "a4b6265ef56a961a"
+            ]
+        ]
+    },
+    {
+        "id": "6f4f3da10bcefa5d",
+        "type": "inject",
+        "z": "122e32a5737ac271",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "tick",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 140,
+        "wires": [
+            [
+                "285f46821392a81d"
+            ]
+        ]
+    },
+    {
+        "id": "60d7121ffbf32eab",
+        "type": "ui-gauge",
+        "z": "122e32a5737ac271",
+        "name": "",
+        "group": "bb5f3cfb3079fe32",
+        "order": 1,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "6",
+        "height": "2",
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Current Total Power",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "W",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "1500",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "2000",
+                "color": "#ea5353",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": 0,
+        "max": "3000",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 850,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "076e6c89aa2dc5e5",
+        "type": "ui-chart",
+        "z": "122e32a5737ac271",
+        "group": "8fe02ca130058c68",
+        "name": "",
+        "label": "Power Usage overtime",
+        "order": 1,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "0",
+        "ymax": "3000",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": "1",
+        "removeOlderUnit": "60",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": 6,
+        "height": "5",
+        "className": "",
+        "interpolation": "linear",
+        "x": 860,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a4b6265ef56a961a",
+        "type": "switch",
+        "z": "122e32a5737ac271",
+        "name": "Over-limit check",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "2000",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 840,
+        "y": 180,
+        "wires": [
+            [
+                "4adf6bcf97fee631"
+            ]
+        ]
+    },
+    {
+        "id": "4adf6bcf97fee631",
+        "type": "function",
+        "z": "122e32a5737ac271",
+        "name": "Alarm message",
+        "func": "msg.payload = \"⚠ POWER LIMIT EXCEEDED: \" + msg.payload + \" W\";\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 840,
+        "y": 240,
+        "wires": [
+            [
+                "5f0093b81fcc98c2"
+            ]
+        ]
+    },
+    {
+        "id": "5f0093b81fcc98c2",
+        "type": "ui-notification",
+        "z": "122e32a5737ac271",
+        "ui": "c4c9401ce1fdc1ff",
+        "position": "top right",
+        "colorDefault": true,
+        "color": "#000000",
+        "displayTime": "3",
+        "showCountdown": true,
+        "outputs": 1,
+        "allowDismiss": true,
+        "dismissText": "Close",
+        "allowConfirm": true,
+        "confirmText": "Confirm",
+        "raw": true,
+        "className": "",
+        "name": "alarm notification",
+        "x": 830,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b7121419d92113fb",
+        "type": "ui-group",
+        "name": "Appliances",
+        "page": "50dbbe214d7399c3",
+        "width": "6",
+        "height": "1",
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "bb5f3cfb3079fe32",
+        "type": "ui-group",
+        "name": "Power gauge",
+        "page": "50dbbe214d7399c3",
+        "width": 6,
+        "height": 1,
+        "order": 4,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "8fe02ca130058c68",
+        "type": "ui-group",
+        "name": "Power history",
+        "page": "50dbbe214d7399c3",
+        "width": 6,
+        "height": 1,
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "c4c9401ce1fdc1ff",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": false
+    },
+    {
+        "id": "50dbbe214d7399c3",
+        "type": "ui-page",
+        "name": "Page 1",
+        "ui": "c4c9401ce1fdc1ff",
+        "path": "/page1",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "5706337a279d43ba",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "5706337a279d43ba",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#fcfcfd",
+            "primary": "#0d74ce",
+            "bgPage": "#f9f9fb",
+            "groupBg": "#ffffff",
+            "groupOutline": "#d9d9e0"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "bb40e2803714334e",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "@flowfuse/node-red-dashboard": "1.31.0"
+        }
+    }
+]

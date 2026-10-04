@@ -1,0 +1,24 @@
+[
+    {
+        "id": "fn_calc_power",
+        "type": "function",
+        "z": "tab_energy_monitor",
+        "name": " Total Power",
+        "func": "const powerRatings = {\n    \"TV\": 1200,\n    \"Lights\": 200,\n    \"Kettle\": 1500,\n    \"Flat iron\": 100,\n    \"Woofa\": 1000,\n};\n\nlet states = flow.get(\"applianceStates\") || {\n    \"TV\": false,\n    \"Lights\": false,\n    \"Kettle\": false,\n    \"Flat iron\": false,\n    \"Woofa\":false,\n};\n\nif (msg.topic && powerRatings.hasOwnProperty(msg.topic)) {\n    states[msg.topic] = Boolean(msg.payload);\n    flow.set(\"applianceStates\", states);\n}\n\nlet total = 0;\nfor (let app in states) {\n    if (states[app]) total += powerRatings[app];\n}\n\nmsg.payload = total;\nmsg.topic = \"Total Power\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 190,
+        "wires": [
+            [
+                "gauge_power",
+                "chart_power",
+                "fn_check_alarm"
+            ]
+        ]
+    }
+]

@@ -1,0 +1,569 @@
+[
+    {
+        "id": "dead6055922d1c14",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d9781beb601e0316",
+        "type": "ui-switch",
+        "z": "dead6055922d1c14",
+        "name": "fan",
+        "label": "fan",
+        "group": "aaf0107807aba77c",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 50,
+        "y": 100,
+        "wires": [
+            [
+                "0516dced3b1fdc1e"
+            ]
+        ]
+    },
+    {
+        "id": "305132cf1d426225",
+        "type": "ui-switch",
+        "z": "dead6055922d1c14",
+        "name": "frigde",
+        "label": "fridge",
+        "group": "aaf0107807aba77c",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 50,
+        "y": 160,
+        "wires": [
+            [
+                "00c4863d61237bd4"
+            ]
+        ]
+    },
+    {
+        "id": "b936ba8ef9ed5d10",
+        "type": "ui-switch",
+        "z": "dead6055922d1c14",
+        "name": "TV",
+        "label": "tv",
+        "group": "aaf0107807aba77c",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 50,
+        "y": 240,
+        "wires": [
+            [
+                "a84ca02da418db56"
+            ]
+        ]
+    },
+    {
+        "id": "00859cc601db70bc",
+        "type": "ui-switch",
+        "z": "dead6055922d1c14",
+        "name": "lights",
+        "label": "lights",
+        "group": "aaf0107807aba77c",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 50,
+        "y": 20,
+        "wires": [
+            [
+                "2f35177e3d405799"
+            ]
+        ]
+    },
+    {
+        "id": "2f35177e3d405799",
+        "type": "change",
+        "z": "dead6055922d1c14",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "lights",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 230,
+        "y": 20,
+        "wires": [
+            [
+                "2baa153cf50df4fa"
+            ]
+        ]
+    },
+    {
+        "id": "0516dced3b1fdc1e",
+        "type": "change",
+        "z": "dead6055922d1c14",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "fan",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 230,
+        "y": 100,
+        "wires": [
+            [
+                "2baa153cf50df4fa"
+            ]
+        ]
+    },
+    {
+        "id": "00c4863d61237bd4",
+        "type": "change",
+        "z": "dead6055922d1c14",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "fridge",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 230,
+        "y": 160,
+        "wires": [
+            [
+                "2baa153cf50df4fa"
+            ]
+        ]
+    },
+    {
+        "id": "a84ca02da418db56",
+        "type": "change",
+        "z": "dead6055922d1c14",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "TV",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 210,
+        "y": 240,
+        "wires": [
+            [
+                "2baa153cf50df4fa"
+            ]
+        ]
+    },
+    {
+        "id": "2baa153cf50df4fa",
+        "type": "function",
+        "z": "dead6055922d1c14",
+        "name": "CURRENT TOTAL POWER",
+        "func": "let states = context.get(\"states\") || {\n    lights: false,\n    fan: false,\n    frigde: false,\n    TV: false\n};\n\n// Convert the switch value to ON/OFF\nlet isOn = Number(msg.payload) === 1;\n\n// Update the appliance\nif (msg.topic === \"lights\") {\n    states.lights = isOn;\n}\n\nif (msg.topic === \"fan\") {\n    states.fan = isOn;\n}\n\nif (msg.topic === \"frigde\") {\n    states.frigde = isOn;\n}\n\nif (msg.topic === \"TV\") {\n    states.TV = isOn;\n}\n\n// Save appliance states\ncontext.set(\"states\", states);\n\n// Calculate total power\nlet totalPower = 0;\n\nif (states.lights) {\n    totalPower += 100;\n}\n\nif (states.fan) {\n    totalPower += 200;\n}\n\nif (states.frigde) {\n    totalPower += 150;\n}\n\nif (states.TV) {\n    totalPower += 300;\n}\n\n// Send total power\nmsg.payload = totalPower;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 120,
+        "wires": [
+            [
+                "6033fe4e520ac089",
+                "0f878c2ec1358d89",
+                "1fc085c70c89f789",
+                "ae26973b210237db",
+                "9cc57e867cc1a2ad"
+            ]
+        ]
+    },
+    {
+        "id": "1fc085c70c89f789",
+        "type": "switch",
+        "z": "dead6055922d1c14",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "500",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 710,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6033fe4e520ac089",
+        "type": "debug",
+        "z": "dead6055922d1c14",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "0f878c2ec1358d89",
+        "type": "ui-gauge",
+        "z": "dead6055922d1c14",
+        "name": "total power",
+        "group": "5d3603436373d939",
+        "order": 1,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "gauge",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "W",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "500",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "1000",
+                "color": "#ea5353",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": 0,
+        "max": "1000",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 710,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ae26973b210237db",
+        "type": "ui-chart",
+        "z": "dead6055922d1c14",
+        "group": "5d3603436373d939",
+        "name": "",
+        "label": "chart",
+        "order": 2,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "",
+        "ymax": "",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": 1,
+        "removeOlderUnit": "3600",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": 6,
+        "height": 8,
+        "className": "",
+        "interpolation": "linear",
+        "x": 710,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9cc57e867cc1a2ad",
+        "type": "ui-notification",
+        "z": "dead6055922d1c14",
+        "ui": "3b62944cff6937da",
+        "position": "top right",
+        "colorDefault": true,
+        "color": "#000000",
+        "displayTime": "6",
+        "showCountdown": true,
+        "outputs": 1,
+        "allowDismiss": true,
+        "dismissText": "Close",
+        "allowConfirm": false,
+        "confirmText": "Confirm",
+        "raw": false,
+        "className": "",
+        "name": "",
+        "x": 700,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "aaf0107807aba77c",
+        "type": "ui-group",
+        "name": "APPLIANCE CONTROLS",
+        "page": "3d98b2a9de2681ad",
+        "width": 6,
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "5d3603436373d939",
+        "type": "ui-group",
+        "name": "ENERGY MONITORING",
+        "page": "3d98b2a9de2681ad",
+        "width": 6,
+        "height": 1,
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "3b62944cff6937da",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": false
+    },
+    {
+        "id": "3d98b2a9de2681ad",
+        "type": "ui-page",
+        "name": "HOME ENERGY MONITORING SYSTEM",
+        "ui": "3b62944cff6937da",
+        "path": "/page2",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "8731b5ad8a141519",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 2,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "8731b5ad8a141519",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#fcfcfd",
+            "primary": "#0d74ce",
+            "bgPage": "#f9f9fb",
+            "groupBg": "#ffffff",
+            "groupOutline": "#d9d9e0"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "f9d044c0f13d536d",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "@flowfuse/node-red-dashboard": "1.31.0"
+        }
+    }
+]

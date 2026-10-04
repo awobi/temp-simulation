@@ -1,0 +1,640 @@
+[
+    {
+        "id": "e94e09b52c1de708",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "cc29e24dba9e1ea6",
+        "type": "junction",
+        "z": "e94e09b52c1de708",
+        "x": 160,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0b02c366f400441a",
+        "type": "ui-switch",
+        "z": "e94e09b52c1de708",
+        "name": "",
+        "label": "Lights",
+        "group": "7171d9b55ce61aab",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 210,
+        "y": 60,
+        "wires": [
+            [
+                "1cbe561bf90a1b59"
+            ]
+        ]
+    },
+    {
+        "id": "befa51864bc7bee5",
+        "type": "ui-switch",
+        "z": "e94e09b52c1de708",
+        "name": "",
+        "label": "Tv",
+        "group": "7171d9b55ce61aab",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 210,
+        "y": 120,
+        "wires": [
+            [
+                "cce97797e9dd1645"
+            ]
+        ]
+    },
+    {
+        "id": "f56a2a9c62a884b2",
+        "type": "ui-switch",
+        "z": "e94e09b52c1de708",
+        "name": "",
+        "label": "Refrigerator",
+        "group": "7171d9b55ce61aab",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 210,
+        "y": 180,
+        "wires": [
+            [
+                "ece377e7593ed818"
+            ]
+        ]
+    },
+    {
+        "id": "c20e968af512f5bc",
+        "type": "ui-switch",
+        "z": "e94e09b52c1de708",
+        "name": "",
+        "label": "Air Conditioner",
+        "group": "7171d9b55ce61aab",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 220,
+        "y": 240,
+        "wires": [
+            [
+                "a22ded9879fb62d9"
+            ]
+        ]
+    },
+    {
+        "id": "1cbe561bf90a1b59",
+        "type": "function",
+        "z": "e94e09b52c1de708",
+        "name": "Lights Power",
+        "func": "if (msg.payload === true) {\n    msg.payload = 100;\n} else {\n    msg.payload = 0;\n}\nmsg.topic=\"lights\";\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 60,
+        "wires": [
+            [
+                "7d82b3b29bf3cd6f"
+            ]
+        ]
+    },
+    {
+        "id": "cce97797e9dd1645",
+        "type": "function",
+        "z": "e94e09b52c1de708",
+        "name": "Tv Power",
+        "func": "if (msg.payload === true) {\n    msg.payload = 150;\n} else {\n    msg.payload = 0;\n}\n\nmsg.topic = \"tv\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 120,
+        "wires": [
+            [
+                "7d82b3b29bf3cd6f"
+            ]
+        ]
+    },
+    {
+        "id": "ece377e7593ed818",
+        "type": "function",
+        "z": "e94e09b52c1de708",
+        "name": "Refrigerator Power",
+        "func": "if (msg.payload === true) {\n    msg.payload = 200;\n} else {\n    msg.payload = 0;\n}\n\nmsg.topic = \"fridge\";\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 180,
+        "wires": [
+            [
+                "7d82b3b29bf3cd6f"
+            ]
+        ]
+    },
+    {
+        "id": "a22ded9879fb62d9",
+        "type": "function",
+        "z": "e94e09b52c1de708",
+        "name": "AC Power",
+        "func": "if (msg.payload === true) {\n    msg.payload = 1000;\n} else {\n    msg.payload = 0;\n}\n\nmsg.topic = \"ac\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 240,
+        "wires": [
+            [
+                "7d82b3b29bf3cd6f"
+            ]
+        ]
+    },
+    {
+        "id": "7d82b3b29bf3cd6f",
+        "type": "function",
+        "z": "e94e09b52c1de708",
+        "name": "Calcuate Total Power",
+        "func": "// Remember the latest power value for each appliance\nif (msg.topic === \"lights\") {\n    flow.set(\"lights\", msg.payload);\n}\n\nif (msg.topic === \"tv\") {\n    flow.set(\"tv\", msg.payload);\n}\n\nif (msg.topic === \"fridge\") {\n    flow.set(\"fridge\", msg.payload);\n}\n\nif (msg.topic === \"ac\") {\n    flow.set(\"ac\", msg.payload);\n}\n\n// Get the latest values\nlet lights = flow.get(\"lights\") || 0;\nlet tv = flow.get(\"tv\") || 0;\nlet fridge = flow.get(\"fridge\") || 0;\nlet ac = flow.get(\"ac\") || 0;\n\n// Calculate total\nlet totalpower = lights + tv + fridge + ac;\n\nflow.set(\"totalpower\",totalpower);\n\nmsg.payload = totalpower;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 120,
+        "wires": [
+            [
+                "125e3c11387e7e5d",
+                "82878a3ca1687e12",
+                "85f2f9e15b0b54d9",
+                "c3ea871958606e53"
+            ]
+        ]
+    },
+    {
+        "id": "125e3c11387e7e5d",
+        "type": "ui-text",
+        "z": "e94e09b52c1de708",
+        "group": "7171d9b55ce61aab",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "TOTAL POWER :",
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 770,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "82878a3ca1687e12",
+        "type": "ui-gauge",
+        "z": "e94e09b52c1de708",
+        "name": "",
+        "group": "7171d9b55ce61aab",
+        "order": 0,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "TOTAL POWER",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "W",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "400",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "600",
+                "color": "#ea5353",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": 0,
+        "max": "1450",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 880,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "85f2f9e15b0b54d9",
+        "type": "ui-chart",
+        "z": "e94e09b52c1de708",
+        "group": "7171d9b55ce61aab",
+        "name": "",
+        "label": "POWER USAGE",
+        "order": 9007199254740991,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "TIME",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "POWER(W)",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "0",
+        "ymax": "1500",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": 1,
+        "removeOlderUnit": "3600",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": 6,
+        "height": 8,
+        "className": "",
+        "interpolation": "linear",
+        "x": 870,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "47b58ecf0147b119",
+        "type": "function",
+        "z": "e94e09b52c1de708",
+        "name": "function 1",
+        "func": "let totalpower = flow.get(\"totalpower\") || 0;\nmsg.payload = totalpower;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 40,
+        "wires": [
+            [
+                "85f2f9e15b0b54d9"
+            ]
+        ]
+    },
+    {
+        "id": "1cfb72ade3d91be1",
+        "type": "inject",
+        "z": "e94e09b52c1de708",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 510,
+        "y": 20,
+        "wires": [
+            [
+                "47b58ecf0147b119"
+            ]
+        ]
+    },
+    {
+        "id": "c3ea871958606e53",
+        "type": "switch",
+        "z": "e94e09b52c1de708",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "1000",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 530,
+        "y": 400,
+        "wires": [
+            [
+                "f12f0f1a61441aeb"
+            ],
+            [
+                "b6d1d82937abf021"
+            ]
+        ]
+    },
+    {
+        "id": "3517e28b928824ba",
+        "type": "ui-notification",
+        "z": "e94e09b52c1de708",
+        "ui": "3be5a9cf8301811a",
+        "position": "top right",
+        "colorDefault": false,
+        "color": "#f50000",
+        "displayTime": "20",
+        "showCountdown": true,
+        "outputs": 1,
+        "allowDismiss": true,
+        "dismissText": "Close",
+        "allowConfirm": false,
+        "confirmText": "Confirm",
+        "raw": false,
+        "className": "",
+        "name": "",
+        "x": 910,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f12f0f1a61441aeb",
+        "type": "function",
+        "z": "e94e09b52c1de708",
+        "name": "function 2",
+        "func": "msg.payload = \"WARNING POWER BEYOND THE 1000V LIMIT!!\"\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 400,
+        "wires": [
+            [
+                "3517e28b928824ba"
+            ]
+        ]
+    },
+    {
+        "id": "b6d1d82937abf021",
+        "type": "function",
+        "z": "e94e09b52c1de708",
+        "name": "function 3",
+        "func": "msg.payload = \"power is Normal\"\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 480,
+        "wires": [
+            [
+                "3517e28b928824ba"
+            ]
+        ]
+    },
+    {
+        "id": "7171d9b55ce61aab",
+        "type": "ui-group",
+        "name": "Group 1",
+        "page": "dd96ea38ddaabf66",
+        "width": 6,
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": true,
+        "disabled": false,
+        "groupType": "default"
+    },
+    {
+        "id": "3be5a9cf8301811a",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": false
+    },
+    {
+        "id": "dd96ea38ddaabf66",
+        "type": "ui-page",
+        "name": "Page 1",
+        "ui": "3be5a9cf8301811a",
+        "path": "/page1",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "353544090adee768",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": 0,
+                "cols": 3
+            },
+            {
+                "name": "Tablet",
+                "px": 576,
+                "cols": 6
+            },
+            {
+                "name": "Small Desktop",
+                "px": 768,
+                "cols": 9
+            },
+            {
+                "name": "Desktop",
+                "px": 1024,
+                "cols": 12
+            }
+        ],
+        "order": 2,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "353544090adee768",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#fcfcfd",
+            "primary": "#0d74ce",
+            "bgPage": "#f9f9fb",
+            "groupBg": "#ffffff",
+            "groupOutline": "#d9d9e0"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "ffc0fcad86967433",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "@flowfuse/node-red-dashboard": "1.31.0"
+        }
+    }
+]

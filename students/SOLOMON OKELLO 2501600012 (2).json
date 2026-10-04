@@ -1,0 +1,506 @@
+[
+    {
+        "id": "c6c23b35f849c8f3",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "ab4e3586b76c8ba5",
+        "type": "ui-switch",
+        "z": "c6c23b35f849c8f3",
+        "name": "LIGHT",
+        "label": "LIGHT",
+        "group": "edfacac2dad35436",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "light",
+        "topicType": "str",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 70,
+        "y": 40,
+        "wires": [
+            [
+                "2086cbfc4ddf52a7"
+            ]
+        ]
+    },
+    {
+        "id": "667837409af4e8d9",
+        "type": "ui-switch",
+        "z": "c6c23b35f849c8f3",
+        "name": "",
+        "label": "FAN",
+        "group": "edfacac2dad35436",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "fan",
+        "topicType": "str",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 70,
+        "y": 140,
+        "wires": [
+            [
+                "2086cbfc4ddf52a7"
+            ]
+        ]
+    },
+    {
+        "id": "dab710e3722c7c63",
+        "type": "ui-switch",
+        "z": "c6c23b35f849c8f3",
+        "name": "",
+        "label": "TV",
+        "group": "edfacac2dad35436",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "tv",
+        "topicType": "str",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 70,
+        "y": 220,
+        "wires": [
+            [
+                "2086cbfc4ddf52a7"
+            ]
+        ]
+    },
+    {
+        "id": "1b3547cbde9ced58",
+        "type": "ui-switch",
+        "z": "c6c23b35f849c8f3",
+        "name": "",
+        "label": "REGRIGIRATOR",
+        "group": "edfacac2dad35436",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "fridge",
+        "topicType": "str",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 110,
+        "y": 320,
+        "wires": [
+            [
+                "2086cbfc4ddf52a7"
+            ]
+        ]
+    },
+    {
+        "id": "2086cbfc4ddf52a7",
+        "type": "function",
+        "z": "c6c23b35f849c8f3",
+        "name": "CALCULATE TOTAL POWER",
+        "func": "\nlet light = flow.get(\"light\") || false;\nlet fan = flow.get(\"fan\") || false;\nlet tv = flow.get(\"tv\") || false;\nlet fridge = flow.get(\"fridge\") || false;\n\n\nif (msg.topic === \"light\") {\n    light = Boolean(msg.payload);\n    flow.set(\"light\", light);\n}\n\nif (msg.topic === \"fan\") {\n    fan = Boolean(msg.payload);\n    flow.set(\"fan\", fan);\n}\n\nif (msg.topic === \"tv\") {\n    tv = Boolean(msg.payload);\n    flow.set(\"tv\", tv);\n}\n\nif (msg.topic === \"fridge\") {\n    fridge = Boolean(msg.payload);\n    flow.set(\"fridge\", fridge);\n}\n\n\nlet totalPower =\n    (light ? 100 : 0) +\n    (fan ? 150 : 0) +\n    (tv ? 120 : 0) +\n    (fridge ? 300 : 0);\n\n\nmsg.payload = totalPower;\nmsg.topic = \"Power\";\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 120,
+        "wires": [
+            [
+                "284b40488c38570e",
+                "d9db6fd05fd1cac6",
+                "8fdcf792097539c8",
+                "2bb471040aa5c07a"
+            ]
+        ],
+        "inputLabels": [
+            "4"
+        ],
+        "outputLabels": [
+            "4"
+        ]
+    },
+    {
+        "id": "284b40488c38570e",
+        "type": "ui-gauge",
+        "z": "c6c23b35f849c8f3",
+        "name": "GUAGE",
+        "group": "edfacac2dad35436",
+        "order": 2,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Current Total Power",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "W",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "300",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "450",
+                "color": "#ea5353",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": 0,
+        "max": "800",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 840,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d9db6fd05fd1cac6",
+        "type": "ui-chart",
+        "z": "c6c23b35f849c8f3",
+        "group": "edfacac2dad35436",
+        "name": "",
+        "label": "Power Usage Over Time",
+        "order": 7,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "Time ",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "Power (W)",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "",
+        "ymax": "",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": 1,
+        "removeOlderUnit": "3600",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": 6,
+        "height": 8,
+        "className": "",
+        "interpolation": "linear",
+        "x": 930,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "83a20853851cd95c",
+        "type": "ui-notification",
+        "z": "c6c23b35f849c8f3",
+        "ui": "b7d203a9403dff32",
+        "position": "top right",
+        "colorDefault": true,
+        "color": "#000000",
+        "displayTime": "5",
+        "showCountdown": true,
+        "outputs": 1,
+        "allowDismiss": true,
+        "dismissText": "Yes",
+        "allowConfirm": true,
+        "confirmText": "Confirm",
+        "raw": true,
+        "className": "<h3>⚠ HIGH POWER CONSUMPTION</h3> <p>Total power has exceeded 2000 W.</p>",
+        "name": "Notification",
+        "x": 950,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e2741eea7b5ee3b3",
+        "type": "inject",
+        "z": "c6c23b35f849c8f3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "4",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 420,
+        "wires": [
+            [
+                "2086cbfc4ddf52a7",
+                "88494205832013bf"
+            ]
+        ]
+    },
+    {
+        "id": "88494205832013bf",
+        "type": "function",
+        "z": "c6c23b35f849c8f3",
+        "name": "CHART DATA",
+        "func": "let light = flow.get(\"light\") || false;\nlet fan = flow.get(\"fan\") || false;\nlet tv = flow.get(\"tv\") || false;\nlet fridge = flow.get(\"fridge\") || false;\n\nlet totalPower =\n    (light ? 100 : 0) +\n    (fan ? 150 : 0) +\n    (tv ? 150 : 0) +\n    (fridge ? 300 : 0);\n\nmsg.payload = totalPower;\nmsg.topic = \"Power\";\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 420,
+        "wires": [
+            [
+                "d9db6fd05fd1cac6"
+            ]
+        ]
+    },
+    {
+        "id": "8fdcf792097539c8",
+        "type": "function",
+        "z": "c6c23b35f849c8f3",
+        "name": "POWER ALARM ",
+        "func": "let limit = 500;\n\nif (msg.payload > limit) {\n    msg.payload = \"⚠️ WARNING: Total power is above 500 W!\";\n    return msg;\n}\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 300,
+        "wires": [
+            [
+                "83a20853851cd95c"
+            ]
+        ]
+    },
+    {
+        "id": "2bb471040aa5c07a",
+        "type": "ui-text",
+        "z": "c6c23b35f849c8f3",
+        "group": "edfacac2dad35436",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "Live Total Power",
+        "label": "Live Total Power",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 920,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "edfacac2dad35436",
+        "type": "ui-group",
+        "name": "Group 1",
+        "page": "da08b3bcfb880bed",
+        "width": 6,
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": true,
+        "disabled": false,
+        "groupType": "default"
+    },
+    {
+        "id": "b7d203a9403dff32",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": false
+    },
+    {
+        "id": "da08b3bcfb880bed",
+        "type": "ui-page",
+        "name": "Page 1",
+        "ui": "b7d203a9403dff32",
+        "path": "/page1",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "f5baa8c1de3bb239",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": 0,
+                "cols": 3
+            },
+            {
+                "name": "Tablet",
+                "px": 576,
+                "cols": 6
+            },
+            {
+                "name": "Small Desktop",
+                "px": 768,
+                "cols": 9
+            },
+            {
+                "name": "Desktop",
+                "px": 1024,
+                "cols": 12
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "f5baa8c1de3bb239",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#fcfcfd",
+            "primary": "#0d74ce",
+            "bgPage": "#f9f9fb",
+            "groupBg": "#ffffff",
+            "groupOutline": "#d9d9e0"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "ca0ab08a766eacee",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "@flowfuse/node-red-dashboard": "1.31.0"
+        }
+    }
+]

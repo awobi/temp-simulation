@@ -1,0 +1,438 @@
+[
+    {
+        "id": "tab_energy_monitor",
+        "type": "tab",
+        "label": "Energy Monitor",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "sw_ac",
+        "type": "ui_switch",
+        "z": "tab_energy_monitor",
+        "name": "Air Conditioner ",
+        "label": "Air Conditioner (1200W)",
+        "tooltip": "",
+        "group": "ui_group_controls",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "AC",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 140,
+        "y": 100,
+        "wires": [
+            [
+                "fn_calc_power"
+            ]
+        ]
+    },
+    {
+        "id": "sw_fridge",
+        "type": "ui_switch",
+        "z": "tab_energy_monitor",
+        "name": "Refrigerator ",
+        "label": "Refrigerator (200W)",
+        "tooltip": "",
+        "group": "ui_group_controls",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "Refrigerator",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 150,
+        "y": 160,
+        "wires": [
+            [
+                "fn_calc_power"
+            ]
+        ]
+    },
+    {
+        "id": "sw_heater",
+        "type": "ui_switch",
+        "z": "tab_energy_monitor",
+        "name": " Heater ",
+        "label": " Heater (1500W)",
+        "tooltip": "",
+        "group": "ui_group_controls",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "Heater",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 120,
+        "y": 220,
+        "wires": [
+            [
+                "fn_calc_power"
+            ]
+        ]
+    },
+    {
+        "id": "sw_lighting",
+        "type": "ui_switch",
+        "z": "tab_energy_monitor",
+        "name": "Lighting Bulbs",
+        "label": "Lighting Bulbs(100W)",
+        "tooltip": "",
+        "group": "ui_group_controls",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "Lighting Bulbs",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 150,
+        "y": 280,
+        "wires": [
+            [
+                "fn_calc_power"
+            ]
+        ]
+    },
+    {
+        "id": "fn_calc_power",
+        "type": "function",
+        "z": "tab_energy_monitor",
+        "name": " Total Power",
+        "func": "const powerRatings = {\n    \"AC\": 1200,\n    \"Refrigerator\": 200,\n    \"Heater\": 1500,\n    \"Lighting Bulbs\": 100,\n    \"Washing Machine\": 1000,\n};\n\nlet states = flow.get(\"applianceStates\") || {\n    \"AC\": false,\n    \"Refrigerator\": false,\n    \"Heater\": false,\n    \"Lighting Bulbs\": false,\n    \"Washing Machine\":false,\n};\n\nif (msg.topic && powerRatings.hasOwnProperty(msg.topic)) {\n    states[msg.topic] = Boolean(msg.payload);\n    flow.set(\"applianceStates\", states);\n}\n\nlet total = 0;\nfor (let app in states) {\n    if (states[app]) total += powerRatings[app];\n}\n\nmsg.payload = total;\nmsg.topic = \"Total Power\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 190,
+        "wires": [
+            [
+                "gauge_power",
+                "chart_power",
+                "fn_check_alarm"
+            ]
+        ]
+    },
+    {
+        "id": "gauge_power",
+        "type": "ui_gauge",
+        "z": "tab_energy_monitor",
+        "name": "Power Gauge",
+        "group": "ui_group_display",
+        "order": 1,
+        "width": "6",
+        "height": "4",
+        "gtype": "gage",
+        "title": "Total Power",
+        "label": "Watts",
+        "format": "{{value}} W",
+        "min": 0,
+        "max": "4500",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "1500",
+        "seg2": "2500",
+        "diff": false,
+        "className": "",
+        "x": 730,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "chart_power",
+        "type": "ui_chart",
+        "z": "tab_energy_monitor",
+        "name": "Power Chart",
+        "group": "ui_group_chart",
+        "order": 1,
+        "width": "12",
+        "height": "6",
+        "label": "Power Usage Over Time",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "Waiting for power data...",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "3500",
+        "removeOlder": "10",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 730,
+        "y": 190,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "slider_alarm",
+        "type": "ui_slider",
+        "z": "tab_energy_monitor",
+        "name": "Alarm ",
+        "label": "Alarm (Watts)",
+        "tooltip": "",
+        "group": "ui_group_display",
+        "order": 2,
+        "width": "6",
+        "height": "1",
+        "passthru": true,
+        "outs": "all",
+        "topic": "Threshold",
+        "topicType": "str",
+        "min": 500,
+        "max": 3500,
+        "step": 100,
+        "className": "",
+        "x": 90,
+        "y": 460,
+        "wires": [
+            [
+                "chg_store_threshold"
+            ]
+        ]
+    },
+    {
+        "id": "chg_store_threshold",
+        "type": "change",
+        "z": "tab_energy_monitor",
+        "name": "Flow Context",
+        "rules": [
+            {
+                "t": "set",
+                "p": "powerThreshold",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 350,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fn_check_alarm",
+        "type": "function",
+        "z": "tab_energy_monitor",
+        "name": "Check Threshold",
+        "func": "let limit = flow.get(\"powerThreshold\") || 3500;\nlet currentPower = msg.payload;\n\nif (currentPower > limit) {\n    msg.payload = \"ALERT: Power consumption (\" + currentPower + \"W) exceeded set limit of \" + limit + \"W!\";\n    return msg;\n}\nreturn null;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 260,
+        "wires": [
+            [
+                "ui_toast_alarm"
+            ]
+        ]
+    },
+    {
+        "id": "ui_toast_alarm",
+        "type": "ui_toast",
+        "z": "tab_energy_monitor",
+        "position": "top right",
+        "displayTime": "4",
+        "highlight": "red",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "POWER ALARM",
+        "name": "Notification Alert",
+        "x": 970,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "fa2fa84e29f541b3",
+        "type": "inject",
+        "z": "tab_energy_monitor",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 40,
+        "wires": [
+            [
+                "fn_calc_power"
+            ]
+        ]
+    },
+    {
+        "id": "793f200ca4d81dc3",
+        "type": "ui_switch",
+        "z": "tab_energy_monitor",
+        "name": "Washing Machine",
+        "label": "Washing Machine (1000W)",
+        "tooltip": "",
+        "group": "ui_group_controls",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "Washing Machine",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 150,
+        "y": 360,
+        "wires": [
+            [
+                "fn_calc_power"
+            ]
+        ]
+    },
+    {
+        "id": "ui_group_controls",
+        "type": "ui_group",
+        "name": "Appliance Switches",
+        "tab": "ui_tab_energy",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "ui_group_display",
+        "type": "ui_group",
+        "name": "Live Power Usage",
+        "tab": "ui_tab_energy",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "ui_group_chart",
+        "type": "ui_group",
+        "name": "Consumption History",
+        "tab": "ui_tab_energy",
+        "order": 3,
+        "disp": true,
+        "width": "12",
+        "collapse": false
+    },
+    {
+        "id": "ui_tab_energy",
+        "type": "ui_tab",
+        "name": "Smart Home Energy",
+        "icon": "dashboard",
+        "order": 1
+    },
+    {
+        "id": "751093029adb74cd",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6"
+        }
+    }
+]

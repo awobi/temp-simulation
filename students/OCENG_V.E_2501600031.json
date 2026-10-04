@@ -1,0 +1,593 @@
+[
+    {
+        "id": "88d367229ff9706c",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "6bf94ca491c98eca",
+        "type": "ui-gauge",
+        "z": "88d367229ff9706c",
+        "name": "",
+        "group": "11cbbbc77f7650a2",
+        "order": 1,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "gauge",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "units",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "150",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "300",
+                "color": "#ea5353",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": 0,
+        "max": "500",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 850,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "50e15dc02f4d2f61",
+        "type": "ui-switch",
+        "z": "88d367229ff9706c",
+        "name": "light",
+        "label": "switch",
+        "group": "11cbbbc77f7650a2",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "60",
+        "onvalueType": "num",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "0",
+        "offvalueType": "num",
+        "officon": "",
+        "offcolor": "",
+        "x": 370,
+        "y": 140,
+        "wires": [
+            [
+                "990cb8d00e3bbfa1"
+            ]
+        ]
+    },
+    {
+        "id": "7a53e4dec87dc13a",
+        "type": "ui-switch",
+        "z": "88d367229ff9706c",
+        "name": "fan",
+        "label": "switch",
+        "group": "11cbbbc77f7650a2",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "75",
+        "onvalueType": "num",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "0",
+        "offvalueType": "num",
+        "officon": "",
+        "offcolor": "",
+        "x": 310,
+        "y": 240,
+        "wires": [
+            [
+                "3acb1435ce2b0709"
+            ]
+        ]
+    },
+    {
+        "id": "844cc3e2f2910405",
+        "type": "ui-switch",
+        "z": "88d367229ff9706c",
+        "name": "tv",
+        "label": "switch",
+        "group": "11cbbbc77f7650a2",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "120",
+        "onvalueType": "num",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "0",
+        "offvalueType": "num",
+        "officon": "",
+        "offcolor": "",
+        "x": 270,
+        "y": 360,
+        "wires": [
+            [
+                "5760defd3463774f"
+            ]
+        ]
+    },
+    {
+        "id": "c21146ea15f07273",
+        "type": "ui-switch",
+        "z": "88d367229ff9706c",
+        "name": "fridge",
+        "label": "switch",
+        "group": "11cbbbc77f7650a2",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "150",
+        "onvalueType": "num",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "0",
+        "offvalueType": "num",
+        "officon": "",
+        "offcolor": "",
+        "x": 230,
+        "y": 560,
+        "wires": [
+            [
+                "8301ca16e8cb88a5"
+            ]
+        ]
+    },
+    {
+        "id": "534eae4659c86f5a",
+        "type": "function",
+        "z": "88d367229ff9706c",
+        "name": "function 1",
+        "func": "// Initialize stored values safely\ncontext.lightVal = context.lightVal !== undefined ? context.lightVal : 0;\ncontext.fanVal = context.fanVal !== undefined ? context.fanVal : 0;\ncontext.tvVal = context.tvVal !== undefined ? context.tvVal : 0;\ncontext.fridgeVal = context.fridgeVal !== undefined ? context.fridgeVal : 0;\n\nlet topic = (msg.topic || \"\").toLowerCase();\n\nif (topic === \"light\") {\n    context.lightVal = msg.payload;\n} else if (topic === \"fan\") {\n    context.fanVal = msg.payload;\n} else if (topic === \"tv\") {\n    context.tvVal = msg.payload;\n} else if (topic === \"fridge\") {\n    context.fridgeVal = msg.payload;\n}\n\n// Calculate total power sum\nmsg.payload = context.lightVal + context.fanVal + context.tvVal + context.fridgeVal;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 300,
+        "wires": [
+            [
+                "6bf94ca491c98eca",
+                "5ff7cb60da9456e9",
+                "dad1cd8ca9b1b766"
+            ]
+        ]
+    },
+    {
+        "id": "5ff7cb60da9456e9",
+        "type": "ui-chart",
+        "z": "88d367229ff9706c",
+        "group": "11cbbbc77f7650a2",
+        "name": "",
+        "label": "chart",
+        "order": 9007199254740991,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "",
+        "ymax": "",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": 1,
+        "removeOlderUnit": "3600",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": 6,
+        "height": 8,
+        "className": "",
+        "interpolation": "linear",
+        "x": 850,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "deb64f0d7ee90390",
+        "type": "ui-notification",
+        "z": "88d367229ff9706c",
+        "ui": "10d2fbefc4ed3001",
+        "position": "top right",
+        "colorDefault": true,
+        "color": "#000000",
+        "displayTime": "3",
+        "showCountdown": true,
+        "outputs": 1,
+        "allowDismiss": true,
+        "dismissText": "Close",
+        "allowConfirm": false,
+        "confirmText": "Confirm",
+        "raw": false,
+        "className": "",
+        "name": "",
+        "x": 1150,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dad1cd8ca9b1b766",
+        "type": "switch",
+        "z": "88d367229ff9706c",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "300",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 730,
+        "y": 440,
+        "wires": [
+            [
+                "cf93efc2cdc622b4"
+            ]
+        ]
+    },
+    {
+        "id": "cf93efc2cdc622b4",
+        "type": "change",
+        "z": "88d367229ff9706c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "WARNING: Power limit exceeded (>300W)",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 920,
+        "y": 440,
+        "wires": [
+            [
+                "deb64f0d7ee90390"
+            ]
+        ]
+    },
+    {
+        "id": "990cb8d00e3bbfa1",
+        "type": "change",
+        "z": "88d367229ff9706c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "light",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload ? 60 : 0",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 180,
+        "wires": [
+            [
+                "534eae4659c86f5a"
+            ]
+        ]
+    },
+    {
+        "id": "3acb1435ce2b0709",
+        "type": "change",
+        "z": "88d367229ff9706c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "fan",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload ? 75 : 0",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 260,
+        "wires": [
+            [
+                "534eae4659c86f5a"
+            ]
+        ]
+    },
+    {
+        "id": "5760defd3463774f",
+        "type": "change",
+        "z": "88d367229ff9706c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "tv",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload ? 120 : 0",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 320,
+        "wires": [
+            [
+                "534eae4659c86f5a"
+            ]
+        ]
+    },
+    {
+        "id": "8301ca16e8cb88a5",
+        "type": "change",
+        "z": "88d367229ff9706c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "fridge",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload ? 150 : 0",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 400,
+        "y": 440,
+        "wires": [
+            [
+                "534eae4659c86f5a"
+            ]
+        ]
+    },
+    {
+        "id": "11cbbbc77f7650a2",
+        "type": "ui-group",
+        "name": "Group 1",
+        "page": "6ed7d38f78f40b84",
+        "width": 6,
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": true,
+        "disabled": false,
+        "groupType": "default"
+    },
+    {
+        "id": "10d2fbefc4ed3001",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": false
+    },
+    {
+        "id": "6ed7d38f78f40b84",
+        "type": "ui-page",
+        "name": "Page 1",
+        "ui": "10d2fbefc4ed3001",
+        "path": "/page1",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "d260f244067af713",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": 0,
+                "cols": 3
+            },
+            {
+                "name": "Tablet",
+                "px": 576,
+                "cols": 6
+            },
+            {
+                "name": "Small Desktop",
+                "px": 768,
+                "cols": 9
+            },
+            {
+                "name": "Desktop",
+                "px": 1024,
+                "cols": 12
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "d260f244067af713",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#fcfcfd",
+            "primary": "#0d74ce",
+            "bgPage": "#f9f9fb",
+            "groupBg": "#ffffff",
+            "groupOutline": "#d9d9e0"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "fd646926ed24430f",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "@flowfuse/node-red-dashboard": "1.31.0"
+        }
+    }
+]

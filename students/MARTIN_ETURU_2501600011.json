@@ -1,0 +1,534 @@
+[
+    {
+        "id": "fb70c5083377c99c",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "ee785c7b88b2595d",
+        "type": "inject",
+        "z": "fb70c5083377c99c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 40,
+        "wires": [
+            [
+                "ea2a1de615d36ef8"
+            ]
+        ]
+    },
+    {
+        "id": "ea2a1de615d36ef8",
+        "type": "function",
+        "z": "fb70c5083377c99c",
+        "name": "Generate Appliance Power Consumption",
+        "func": "// Appliance rated powers in Watts\nconst ratings = {\n    fan: 75,\n    light: 15,\n    ac: 1200,\n    fridge: 150\n};\n\n// Store the current power of each appliance\ncontext.appliances = context.appliances || {\n    fan: 0,\n    light: 0,\n    ac: 0,\n    fridge: 0\n};\n\n// Check that the message belongs to a known appliance\nif (msg.topic && ratings.hasOwnProperty(msg.topic)) {\n\n    // Appliance is ON\n    if (msg.payload === true || msg.payload === 1 || msg.payload === \"ON\") {\n        context.appliances[msg.topic] = ratings[msg.topic];\n    }\n\n    // Appliance is OFF\n    else if (msg.payload === false || msg.payload === 0 || msg.payload === \"OFF\") {\n        context.appliances[msg.topic] = 0;\n    }\n\n    // If an actual power value is sent, use that value\n    else if (!isNaN(Number(msg.payload))) {\n        context.appliances[msg.topic] = Number(msg.payload);\n    }\n}\n\n\n// Calculate total power\nlet total = 0;\n\nfor (let name in context.appliances) {\n    total += Number(context.appliances[name]) || 0;\n}\n\n\n// Output\nmsg.payload = total;\nmsg.topic = \"power\";\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 160,
+        "wires": [
+            [
+                "d1c26fb9309a1011",
+                "426d4ce44c856f52"
+            ]
+        ]
+    },
+    {
+        "id": "426d4ce44c856f52",
+        "type": "ui-gauge",
+        "z": "fb70c5083377c99c",
+        "name": "Power Meter",
+        "group": "851a0bc9143059e3",
+        "order": 0,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "gauge",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "units",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "200",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "1200",
+                "color": "#fa8500",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "1600",
+                "color": "#ea5353",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": 0,
+        "max": "1600",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 530,
+        "y": 280,
+        "wires": [
+            [
+                "32f77ecdb77dc2fd",
+                "b2443870bba8e2f5"
+            ]
+        ]
+    },
+    {
+        "id": "c7cb04c90df8e0eb",
+        "type": "change",
+        "z": "fb70c5083377c99c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 560,
+        "wires": [
+            [
+                "286e425da8e5b9b4"
+            ]
+        ]
+    },
+    {
+        "id": "3abca389d82737f8",
+        "type": "ui-switch",
+        "z": "fb70c5083377c99c",
+        "name": "fan",
+        "label": "fan",
+        "group": "851a0bc9143059e3",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": false,
+        "topic": "fan",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 390,
+        "y": 40,
+        "wires": [
+            [
+                "ea2a1de615d36ef8"
+            ]
+        ]
+    },
+    {
+        "id": "6b3b4d1cda981b2f",
+        "type": "ui-switch",
+        "z": "fb70c5083377c99c",
+        "name": "light",
+        "label": "light",
+        "group": "851a0bc9143059e3",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": false,
+        "topic": "light",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 230,
+        "y": 120,
+        "wires": [
+            [
+                "ea2a1de615d36ef8"
+            ]
+        ]
+    },
+    {
+        "id": "314a65b1fb3e96c4",
+        "type": "ui-switch",
+        "z": "fb70c5083377c99c",
+        "name": "ac",
+        "label": "ac",
+        "group": "851a0bc9143059e3",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": false,
+        "topic": "ac",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 190,
+        "y": 180,
+        "wires": [
+            [
+                "ea2a1de615d36ef8"
+            ]
+        ]
+    },
+    {
+        "id": "6081a9c87351b1bd",
+        "type": "ui-switch",
+        "z": "fb70c5083377c99c",
+        "name": "fridge",
+        "label": "fridge",
+        "group": "851a0bc9143059e3",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": false,
+        "topic": "fridge",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 130,
+        "y": 260,
+        "wires": [
+            [
+                "ea2a1de615d36ef8"
+            ]
+        ]
+    },
+    {
+        "id": "b2443870bba8e2f5",
+        "type": "switch",
+        "z": "fb70c5083377c99c",
+        "name": "Power Alarm",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "1300",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 630,
+        "y": 400,
+        "wires": [
+            [
+                "c7cb04c90df8e0eb"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "32f77ecdb77dc2fd",
+        "type": "ui-chart",
+        "z": "fb70c5083377c99c",
+        "group": "851a0bc9143059e3",
+        "name": "Power History",
+        "label": "chart",
+        "order": 9007199254740991,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "",
+        "ymax": "",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": "30",
+        "removeOlderUnit": "60",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": 6,
+        "height": 8,
+        "className": "",
+        "interpolation": "linear",
+        "x": 320,
+        "y": 380,
+        "wires": [
+            [
+                "616553056a3df218"
+            ]
+        ]
+    },
+    {
+        "id": "286e425da8e5b9b4",
+        "type": "ui-notification",
+        "z": "fb70c5083377c99c",
+        "ui": "459e4a88d82f7e95",
+        "position": "top right",
+        "colorDefault": true,
+        "color": "#000000",
+        "displayTime": "7",
+        "showCountdown": true,
+        "outputs": 1,
+        "allowDismiss": true,
+        "dismissText": "Close",
+        "allowConfirm": false,
+        "confirmText": "Confirm",
+        "raw": false,
+        "className": "",
+        "name": "",
+        "x": 450,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "616553056a3df218",
+        "type": "debug",
+        "z": "fb70c5083377c99c",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 200,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "d1c26fb9309a1011",
+        "type": "debug",
+        "z": "fb70c5083377c99c",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "851a0bc9143059e3",
+        "type": "ui-group",
+        "name": "Group 1",
+        "page": "e5456032ef0c38d4",
+        "width": 6,
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": true,
+        "disabled": false,
+        "groupType": "default"
+    },
+    {
+        "id": "459e4a88d82f7e95",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": false
+    },
+    {
+        "id": "e5456032ef0c38d4",
+        "type": "ui-page",
+        "name": "Page 1",
+        "ui": "459e4a88d82f7e95",
+        "path": "/page1",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "98bedff815ade629",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": 0,
+                "cols": 3
+            },
+            {
+                "name": "Tablet",
+                "px": 576,
+                "cols": 6
+            },
+            {
+                "name": "Small Desktop",
+                "px": 768,
+                "cols": 9
+            },
+            {
+                "name": "Desktop",
+                "px": 1024,
+                "cols": 12
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "98bedff815ade629",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#fcfcfd",
+            "primary": "#0d74ce",
+            "bgPage": "#f9f9fb",
+            "groupBg": "#ffffff",
+            "groupOutline": "#d9d9e0"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "993ed2f2dfd230dc",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "@flowfuse/node-red-dashboard": "1.31.0"
+        }
+    }
+]

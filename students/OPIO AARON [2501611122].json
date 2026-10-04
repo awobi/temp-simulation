@@ -1,0 +1,615 @@
+[
+    {
+        "id": "2de9861d65d4124f",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "edc82e22158a2e09",
+        "type": "ui-gauge",
+        "z": "2de9861d65d4124f",
+        "name": "TOTAL POWER",
+        "group": "d0b04028d8fced21",
+        "order": 1,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "gauge",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "W",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "1000",
+                "color": "#5cd65c",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "3500",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "6000",
+                "color": "#ea5353",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": "1000",
+        "max": "6000",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 760,
+        "y": 340,
+        "wires": [
+            [
+                "62086470a02105ab"
+            ]
+        ]
+    },
+    {
+        "id": "30de1707e9787f98",
+        "type": "ui-switch",
+        "z": "2de9861d65d4124f",
+        "name": "LIGHT💡",
+        "label": "LIGHT💡",
+        "group": "f8235bb2970dbd14",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "light",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "20",
+        "onvalueType": "num",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "0",
+        "offvalueType": "num",
+        "officon": "",
+        "offcolor": "",
+        "x": 240,
+        "y": 60,
+        "wires": [
+            [
+                "9ac4d825e10895e9"
+            ]
+        ]
+    },
+    {
+        "id": "fc8d73bcd23a2e37",
+        "type": "ui-switch",
+        "z": "2de9861d65d4124f",
+        "name": "fan🪭",
+        "label": "Fan🪭",
+        "group": "f8235bb2970dbd14",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "fan",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "1500",
+        "onvalueType": "num",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "0",
+        "offvalueType": "num",
+        "officon": "",
+        "offcolor": "",
+        "x": 230,
+        "y": 160,
+        "wires": [
+            [
+                "7e0695df51602ccc"
+            ]
+        ]
+    },
+    {
+        "id": "8202d685c5800c69",
+        "type": "ui-switch",
+        "z": "2de9861d65d4124f",
+        "name": "TV",
+        "label": "TV📺",
+        "group": "f8235bb2970dbd14",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "tv",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "1500",
+        "onvalueType": "num",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "0",
+        "offvalueType": "num",
+        "officon": "",
+        "offcolor": "",
+        "x": 230,
+        "y": 320,
+        "wires": [
+            [
+                "63f91fdbf56acb2b"
+            ]
+        ]
+    },
+    {
+        "id": "f742a4adf3732c13",
+        "type": "ui-switch",
+        "z": "2de9861d65d4124f",
+        "name": "fridge",
+        "label": "Fridge",
+        "group": "f8235bb2970dbd14",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": false,
+        "topic": "fridge",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "2000",
+        "onvalueType": "num",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "0",
+        "offvalueType": "num",
+        "officon": "",
+        "offcolor": "",
+        "x": 230,
+        "y": 240,
+        "wires": [
+            [
+                "e077b01191ad12f4"
+            ]
+        ]
+    },
+    {
+        "id": "9ac4d825e10895e9",
+        "type": "change",
+        "z": "2de9861d65d4124f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "light",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 60,
+        "wires": [
+            [
+                "18782f58f5f458f0"
+            ]
+        ]
+    },
+    {
+        "id": "7e0695df51602ccc",
+        "type": "change",
+        "z": "2de9861d65d4124f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "fan",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 370,
+        "y": 160,
+        "wires": [
+            [
+                "18782f58f5f458f0"
+            ]
+        ]
+    },
+    {
+        "id": "63f91fdbf56acb2b",
+        "type": "change",
+        "z": "2de9861d65d4124f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "tv",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 390,
+        "y": 320,
+        "wires": [
+            [
+                "18782f58f5f458f0"
+            ]
+        ]
+    },
+    {
+        "id": "e077b01191ad12f4",
+        "type": "change",
+        "z": "2de9861d65d4124f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "fridge",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 370,
+        "y": 240,
+        "wires": [
+            [
+                "18782f58f5f458f0"
+            ]
+        ]
+    },
+    {
+        "id": "18782f58f5f458f0",
+        "type": "function",
+        "z": "2de9861d65d4124f",
+        "name": "calculate total power",
+        "func": "  // 1. Initialize context memory to track each appliance\nlet powerStates = context.get('powerStates') || {\n    \"light\": 0,\n    \"fan\": 0,\n    \"fridge\": 0,\n    \"tv\": 0\n};\n\n// 2. Update the specific appliance wattage that just\nif (msg.topic) {\n    powerStates[msg.topic] = Number(msg.payload);\n}\n\ncontext.set('powerStates', powerStates);\n\n// 4. Calculate the sum total of all running appliance\nlet totalPower = powerStates.light+\n    powerStates.fan +\n    powerStates.fridge +\n    powerStates.tv;\nmsg.payload=totalPower;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 200,
+        "wires": [
+            [
+                "91adf19de4986337",
+                "edc82e22158a2e09",
+                "12c3d6bd4adbae1d",
+                "5e04a82da99b5afe"
+            ]
+        ]
+    },
+    {
+        "id": "91adf19de4986337",
+        "type": "ui-chart",
+        "z": "2de9861d65d4124f",
+        "group": "d0b04028d8fced21",
+        "name": "",
+        "label": "Power usage over time",
+        "order": 2,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "",
+        "ymax": "",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": 1,
+        "removeOlderUnit": "3600",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": 6,
+        "height": 8,
+        "className": "",
+        "interpolation": "linear",
+        "x": 700,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b48ba16fe1ed620c",
+        "type": "ui-notification",
+        "z": "2de9861d65d4124f",
+        "ui": "91905c1408e75e85",
+        "position": "top right",
+        "colorDefault": false,
+        "color": "#ff0000",
+        "displayTime": "5",
+        "showCountdown": true,
+        "outputs": 1,
+        "allowDismiss": true,
+        "dismissText": "Close",
+        "allowConfirm": false,
+        "confirmText": "Confirm",
+        "raw": false,
+        "className": "",
+        "name": "Alarm",
+        "x": 830,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "12c3d6bd4adbae1d",
+        "type": "debug",
+        "z": "2de9861d65d4124f",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "62086470a02105ab",
+        "type": "debug",
+        "z": "2de9861d65d4124f",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "5e04a82da99b5afe",
+        "type": "switch",
+        "z": "2de9861d65d4124f",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "5000",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 530,
+        "y": 420,
+        "wires": [
+            [
+                "5fbd34958cfaf886"
+            ]
+        ]
+    },
+    {
+        "id": "5fbd34958cfaf886",
+        "type": "change",
+        "z": "2de9861d65d4124f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Warning🪫!!! total Power consumed above Normal",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 460,
+        "wires": [
+            [
+                "b48ba16fe1ed620c"
+            ]
+        ]
+    },
+    {
+        "id": "d0b04028d8fced21",
+        "type": "ui-group",
+        "name": "Power Monitor",
+        "page": "75036e994f07305e",
+        "width": 6,
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "f8235bb2970dbd14",
+        "type": "ui-group",
+        "name": "Appliances",
+        "page": "75036e994f07305e",
+        "width": 6,
+        "height": 1,
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "91905c1408e75e85",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": false
+    },
+    {
+        "id": "75036e994f07305e",
+        "type": "ui-page",
+        "name": "Page 2",
+        "ui": "91905c1408e75e85",
+        "path": "/page2",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "8ef019465a67b36f",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "8ef019465a67b36f",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#fcfcfd",
+            "primary": "#0d74ce",
+            "bgPage": "#f9f9fb",
+            "groupBg": "#ffffff",
+            "groupOutline": "#d9d9e0"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "5020f634c6a190d8",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "@flowfuse/node-red-dashboard": "1.31.0"
+        }
+    }
+]
